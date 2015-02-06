@@ -10,3 +10,6 @@ FindInducedH[g_,h_]:=Module[{
     Return[list],
     Return[subs[[FirstPosition[list,True]]]]];
 ]
+
+SimplicialVertexQ[g_, v_] := 
+  CompleteGraphQ[VertexDelete[NeighborhoodGraph[g, v], v]];

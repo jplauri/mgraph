@@ -14,6 +14,19 @@ FindInducedH[g_,h_]:=Module[{
 SimplicialVertexQ[g_, v_] := 
   CompleteGraphQ[VertexDelete[NeighborhoodGraph[g, v], v]];
 
+ChordalGraphQ::usage = 
+  "ChordalGraph[g] yields True if g is a chordal graph and False otherwise.";
+
+ChordalGraphQ[g_] := 
+ Module[{h = g, 
+   slist = Select[VertexList[g], SimplicialVertexQ[g, #] &]},
+  While[Length[slist] != 0,
+   h = VertexDelete[h, slist];
+   slist = Select[VertexList[h], SimplicialVertexQ[h, #] &];
+   ];
+  EmptyGraphQ[h]
+]
+
 RegularGraphQ[g_] := Module[
   {degrees = VertexDegree[g]},
   Min[degrees] == Max[degrees]

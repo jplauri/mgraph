@@ -13,3 +13,13 @@ FindInducedH[g_,h_]:=Module[{
 
 SimplicialVertexQ[g_, v_] := 
   CompleteGraphQ[VertexDelete[NeighborhoodGraph[g, v], v]];
+
+RegularGraphQ[g_] := Module[
+  {degrees = VertexDegree[g]},
+  Min[degrees] == Max[degrees]
+]
+
+RegularGraphQ[g_, k_] := Module[
+  {degrees = VertexDegree[g]},
+  Count[degrees, k] == Length[degrees]
+]

@@ -27,6 +27,12 @@ ChordalGraphQ[g_] :=
   EmptyGraphQ[h]
 ]
 
+SplitGraphQ::usage = 
+  "SplitGraphQ[h] yields True if g is a split graph and False otherwise.";
+
+SplitGraphQ[g_] := 
+  HFreeQ[g, CycleGraph[4]] && HFreeQ[g, CycleGraph[5]] && HFreeQ[g, GraphComplement[CycleGraph[4]]];
+
 RegularGraphQ[g_] := Module[
   {degrees = VertexDegree[g]},
   Min[degrees] == Max[degrees]

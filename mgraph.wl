@@ -65,3 +65,15 @@ FindAllInducedRRegularSubgraphs[g_, r_, k_] := Module[
     Return[subs[[pos]]],
     Return[{}]]
    ];
+
+RandomIntervalGraph::usage = 
+  "RandomIntervalGraph[n, max] gives an interval graph on n vertices, where each interval is taken from [0,max]";
+
+RandomIntervalGraph[n_, max_] := 
+ Module[{t = Table[Sort[Interval[RandomSample[Range[max], 2]]], {n}]},
+  SimpleGraph[
+   AdjacencyGraph[
+    Boole[Reap[
+       Do[Sow[UnsameQ[IntervalIntersection[t[[i]], #], Interval[]] & /@
+           t], {i, n}]][[2, 1]]]]]
+  ]

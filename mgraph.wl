@@ -33,6 +33,11 @@ SplitGraphQ::usage =
 SplitGraphQ[g_] := 
   HFreeQ[g, CycleGraph[4]] && HFreeQ[g, CycleGraph[5]] && HFreeQ[g, GraphComplement[CycleGraph[4]]];
 
+ThresholdGraphQ::usage = 
+  "ThresholdGraphQ[g] yields True if g is a threshold graph and False otherwise.";
+
+ThresholdGraphQ[g_] := HFreeQ[g, CycleGraph[4]] && HFreeQ[g, PathGraph[{1, 2, 3, 4}]] && HFreeQ[g, GraphComplement[CycleGraph[4]]];
+
 RegularGraphQ[g_] := Module[
   {degrees = VertexDegree[g]},
   Min[degrees] == Max[degrees]

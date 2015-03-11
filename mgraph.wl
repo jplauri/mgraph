@@ -77,3 +77,11 @@ RandomIntervalGraph[n_, max_] :=
        Do[Sow[UnsameQ[IntervalIntersection[t[[i]], #], Interval[]] & /@
            t], {i, n}]][[2, 1]]]]]
   ]
+
+ChromaticNumber::usage = "ChromaticNumber[g] gives the chromatic number of the graph g";
+
+ChromaticNumber[g_] := Module[{k = 1}, While[ChromaticPolynomial[g, k] == 0, ++k]; k]
+ 
+CliqueCoverNumber::usage = "CliqueCoverNumber[g] gives the vertex clique covering number of the graph g";
+ 
+CliqueCoverNumber[g_] := ChromaticNumber[GraphComplement[g]];

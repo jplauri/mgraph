@@ -90,3 +90,7 @@ ChromaticNumber[g_] := Module[{k = 1}, While[ChromaticPolynomial[g, k] == 0, ++k
 CliqueCoverNumber::usage = "CliqueCoverNumber[g] gives the vertex clique covering number of the graph g";
  
 CliqueCoverNumber[g_] := ChromaticNumber[GraphComplement[g]];
+
+MinimumDominatingSet::usage = "MinimumDominatingSet[g] gives the domination number of the graph g";
+
+MinimumDominatingSet[g_] := First@MinimalBy[FindClique[GraphComplement[g], Infinity, All], Length];

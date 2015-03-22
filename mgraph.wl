@@ -1,7 +1,7 @@
-HFreeQ[g_,h_]:=Module[{
-  subs=Subgraph[g,#]&/@Subsets[VertexList[g],{VertexCount[h]}]},
-  Return[NoneTrue[IsomorphicGraphQ[#,h]&/@subs,TrueQ]];
-]
+HFreeQ[g_, h_] := 
+ Module[{subs = Subgraph[g, #] & /@ Subsets[VertexList[g], {VertexCount[h]}]}, 
+  NoneTrue[IsomorphicGraphQ[#, h] & /@ subs, TrueQ]
+  ]
 
 FindInducedH[g_,h_]:=Module[{
   subs=Subgraph[g,#]&/@Subsets[VertexList[g],{VertexCount[h]}]},

@@ -91,6 +91,12 @@ CliqueCoverNumber::usage = "CliqueCoverNumber[g] gives the vertex clique coverin
  
 CliqueCoverNumber[g_] := ChromaticNumber[GraphComplement[g]];
 
-MinimumDominatingSet::usage = "MinimumDominatingSet[g] gives the domination number of the graph g";
+MinimumIndependentDominatingSet::usage = "MinimumIndependentDominatingSet[g] gives the independent domination number of the graph g";
 
-MinimumDominatingSet[g_] := First@MinimalBy[FindClique[GraphComplement[g], Infinity, All], Length];
+MinimumIndependentDominatingSet[g_] := First@MinimalBy[FindClique[GraphComplement[g], Infinity, All], Length];
+
+ForestNumber::usage = "ForestNumber[g] gives the forest number of the graph g";
+
+ForestNumber[g_, k_] := AnyTrue[Subgraph[g, #] & /@ Subsets[VertexList[g], {k}], AcyclicGraphQ];
+
+ForestNumber[g_] := Module[{k = 1}, While[ForestNumber[g, k] == True, ++k]; k - 1];

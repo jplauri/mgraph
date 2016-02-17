@@ -100,3 +100,10 @@ ForestNumber::usage = "ForestNumber[g] gives the forest number of the graph g";
 ForestNumber[g_, k_] := AnyTrue[Subgraph[g, #] & /@ Subsets[VertexList[g], {k}], AcyclicGraphQ];
 
 ForestNumber[g_] := Module[{k = 1}, While[ForestNumber[g, k] == True, ++k]; k - 1];
+
+DominatingSetQ[g_, s_] := ! 
+  MemberQ[Intersection[s, AdjacencyList[g, #]] & /@ 
+    Complement[VertexList[g], s], {}];
+    
+ConnectedDominatingSetQ[g_, s_] := 
+  ConnectedGraphQ[Subgraph[g, s]] && DominatingSetQ[g, s];

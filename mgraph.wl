@@ -107,3 +107,14 @@ DominatingSetQ[g_, s_] := !
     
 ConnectedDominatingSetQ[g_, s_] := 
   ConnectedGraphQ[Subgraph[g, s]] && DominatingSetQ[g, s];
+  
+DominatingPairQ[g_, p_] := Module[{},
+   dist = GraphDistance[g, First[p], Last[p]];
+   paths = FindPath[g, First[p], Last[p], {dist}, All];
+   AnyTrue[paths, DominatingSetQ[g, #] &]
+   ];
+   
+DiametralPathGraphQ[g_] := Module[{},
+  mat = UpperTriangularize[GraphDistanceMatrix[g]];
+  AnyTrue[Position[mat, Max[mat]], DominatingPairQ[g, #] &]
+  ]

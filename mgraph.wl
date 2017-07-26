@@ -27,6 +27,12 @@ ChordalGraphQ[g_] :=
   EmptyGraphQ[h]
 ]
 
+SeparatorQ[g_, s_] := ! ConnectedGraphQ[VertexDelete[g, s]];
+
+MinimalSeparatorQ[g_, s_] := 
+  SeparatorQ[g, s] && 
+   NoneTrue[Subsets[s, {1, Length[s] - 1}], SeparatorQ[g, #] &];
+
 SplitGraphQ::usage = 
   "SplitGraphQ[h] yields True if g is a split graph and False otherwise.";
 

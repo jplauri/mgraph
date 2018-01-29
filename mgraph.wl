@@ -124,3 +124,13 @@ DiametralPathGraphQ[g_] := Module[{},
   mat = UpperTriangularize[GraphDistanceMatrix[g]];
   AnyTrue[Position[mat, Max[mat]], DominatingPairQ[g, #] &]
   ]
+
+AsteroidalTripleQ[g_, x_, y_, z_] := 
+  MemberQ[IntersectingQ[#, AdjacencyList[g, z]] & /@ 
+    FindPath[g, x, y, Infinity, All], False];
+    
+ATFreeQ[g_] := 
+  FreeQ[AsteroidalTripleQ[g, #[[1]], #[[2]], #[[3]]] & /@ 
+    Subsets[VertexList[g], {3}], False];
+    
+IntervalGraphQ[g_] := ChordalGraphQ[g] && ATFreeQ[g];
